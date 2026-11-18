@@ -1,0 +1,32 @@
+
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<section class="bg-light text-center p-5 rounded shadow-sm mt-4">
+    <h1 class="display-4 fw-bold">
+        Gestor de Tareas en Django
+    </h1>
+
+    <p class="lead text-muted mt-3">
+        Organiza tus pendientes diarios, marca tus actividades
+        completadas y mantén el control de tu productividad
+        desde cualquier lugar en la nube.
+    </p>
+
+    <div class="mt-4">
+        {% if user.is_authenticated %}
+            <a href="{% url 'tasks' %}" class="btn btn-dark">
+                Ver mis tareas
+            </a>
+        {% else %}
+            <a href="{% url 'signin' %}" class="btn btn-dark me-2">
+                Iniciar Sesión
+            </a>
+
+            <a href="{% url 'signup' %}" class="btn btn-outline-dark">
+                Crear Cuenta
+            </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

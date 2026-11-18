@@ -1,0 +1,50 @@
+
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h1 class="text-center mb-4">
+    {% if completed %}
+        Tareas completadas
+    {% else %}
+        Tareas pendientes
+    {% endif %}
+</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        {% for task in tasks %}
+        <a href="{% url 'task_detail' task.id %}"
+           class="text-decoration-none text-dark">
+
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h4>
+                        {{ task.title }}
+                        {% if task.important %}
+                            <span class="badge bg-danger">Importante</span>
+                        {% endif %}
+                    </h4>
+
+                    <p>{{ task.description|truncatewords:25 }}</p>
+                    <small class="text-muted">
+                        Creada: {{ task.created|date:"d/m/Y H:i" }}
+                    </small>
+                </div>
+            </div>
+        </a>
+
+        {% empty %}
+        <div class="alert alert-info text-center">
+            No tienes tareas en esta sección.
+        </div>
+        {% endfor %}
+
+        <div class="text-center mt-4">
+            <a href="{% url 'create_task' %}" class="btn btn-dark">
+                Crear nueva tarea
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
